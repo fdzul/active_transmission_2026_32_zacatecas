@@ -18,7 +18,7 @@ library(fishualize)
 
 source("~/Library/CloudStorage/Dropbox/r_developments/r_dashboards/netlify/1.2.persisten_dengue_transmission_2026/persistent_dengue_transmission_10_durango/mp_dengue_cases.R")
 loc1 <- "Fresnillo"
-loc2 <- "Jalpa"
+loc2 <- "Juchipila"
 cvegeo <- "32"
 ```
 
@@ -216,6 +216,25 @@ z |>
 ```
 :::
 
+
+::: grid-card
+
+```{r chains_loc2,echo=FALSE}
+z |>
+    #dplyr::filter(IDE_EDA_ANO <= 12 | IDE_EDA_ANO >= 65) |>
+    dplyr::mutate(onset = FEC_INI_SIGNOS_SINT) |>
+    dplyr::select(ANO, long, lat, onset) |>
+    dplyr::mutate(x = long,
+                  y = lat) |>
+    sf::st_as_sf(coords = c("x", "y"),
+                 crs = 4326) |>
+    mp_transmission_chains(
+                           yrs = 2026,
+                           locality = loc2,
+                           cve_edo = cvegeo)
+
+```
+:::
 
 
 </div>
